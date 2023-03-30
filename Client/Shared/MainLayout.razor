@@ -4,24 +4,35 @@
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
-<MudLayout>
-    <MudAppBar>
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => 
-                                                                                                               DrawerToggle())" />
-    </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen">
-        <MobileNavMenu />
-    </MudDrawer>
-    <MudMainContent>
-        @Body
-    </MudMainContent>
-    
-</MudLayout>
+<MudBreakpointProvider>
+    <MudLayout Class="header">
+        <MudAppBar Elevation="5" Fixed="true">
+            <MudHidden Breakpoint="Breakpoint.MdAndDown">
+                <MudIconButton
+                    Icon="@Icons.Material.Filled.Menu"
+                    Color="Color.Inherit"
+                    Edge="Edge.Start"
+                    OnClick="@((e) => DrawerToggle())"
+                />
+            </MudHidden>
+            Manoel
+            <MudSpacer />
+            
+        </MudAppBar>
+        <MudHidden Breakpoint="Breakpoint.MdAndDown">
+            <MobileNavMenu DrawerOpen="@_drawerOpen" />
+        </MudHidden>
+        <MudMainContent>
+            @Body
+        </MudMainContent>
+    </MudLayout>
+</MudBreakpointProvider>
 
 @code {
-    
-    bool _drawerOpen = false;
 
-    void DrawerToggle() => _drawerOpen = !_drawerOpen;
+    bool _drawerOpen = false;
     
+    void DrawerToggle() => _drawerOpen = !_drawerOpen;
+
 }
+

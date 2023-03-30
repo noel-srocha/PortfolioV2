@@ -1,7 +1,15 @@
-﻿<MudNavMenu>
-    <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
-</MudNavMenu>
+﻿<MudDrawer @bind-Open="@DrawerOpen">
+    <MudNavMenu>
+        <MudText Typo="Typo.h4">Manoel</MudText>
+        <MudText Typo="Typo.body2">Web Developer</MudText>
+        <MudDivider Class="my-2" />
+        <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
+    </MudNavMenu>
+</MudDrawer>
 
 @code {
-    
+
+    [Parameter]
+    public bool DrawerOpen { get; set; } = false;
+
 }
