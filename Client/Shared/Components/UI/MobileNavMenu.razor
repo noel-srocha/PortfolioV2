@@ -3,7 +3,10 @@
         <MudText Typo="Typo.h4">Manoel</MudText>
         <MudText Typo="Typo.body2">Web Developer</MudText>
         <MudDivider Class="my-2" />
-        <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
+        @foreach (var page in _pagesUri)
+        {
+            <MudNavLink Href="@(page)" Match="NavLinkMatch.All">Home</MudNavLink>
+        }
     </MudNavMenu>
 </MudDrawer>
 
@@ -11,5 +14,38 @@
 
     [Parameter]
     public bool DrawerOpen { get; set; } = false;
+    
+    private string[] _pagesUri = {"/", "/about", "/perks", "/skills", "/experience", "/blog"};
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+
+    private bool IsPageActive(string pageTocheckUri)
+    {
+        string[] currentUriSplit = NavigationManager.Uri.Split('/').Skip(3).ToArray();
+
+        if (_pagesUri.Contains(pageTocheckUri))
+        {
+            if (currentUriSplit.Last().Length == 0)
+                return true;
+        }
+        else
+        {
+            string[] pageToCheckUriSplit = pageTocheckUri.Split('/').Skip(1).ToArray();
+
+            foreach (string currentUriPart in currentUriSplit)
+            {
+                foreach (string pageToCheckUriPart in pageToCheckUriSplit)
+                {
+                    if (pageToCheckUriPart == currentUriPart)
+                        return true;
+                }
+            }
+        }
+
+        // If the code gets here, pageToCheckUri is not the active page
+        return false;
+    }
 
 }
